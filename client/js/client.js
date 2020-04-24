@@ -12,7 +12,6 @@ leaveRoomButton.addEventListener('click', leaveRoom);
 viewStreamButton.disabled = true;
 leaveRoomButton.disabled = true;
 
-// Set up audio and video regardless of what devices are present.
 var sdpConstraints = {
 	offerToReceiveAudio: false,
 	offerToReceiveVideo: true
@@ -20,8 +19,8 @@ var sdpConstraints = {
 
 var socket;
 var room;
-var peerConnection; // RTCPeerConnection
-var remoteStream; // MediaStream
+var peerConnection;
+var remoteStream;
 
 function joinRoom() {
 	room = prompt('Enter room name:');
@@ -29,6 +28,9 @@ function joinRoom() {
 
 	if (room !== '') {
 		socket.emit('create or join', room);
+		joinRoomButton.disabled = true;
+		viewStreamButton.disabled = false;
+		leaveRoomButton.disabled = false;
 		console.log(`Attempted to create or join room ${room}.`);
 	}
 
@@ -39,28 +41,6 @@ function joinRoom() {
 	socket.on('log', (array) => console.log.apply(console, array));
 	socket.on('message', handleMessage);
 	socket.on('disconnect', leaveRoom); // TODO: This doesn't work.
-
-	joinRoomButton.disabled = true;
-	viewStreamButton.disabled = false;
-	leaveRoomButton.disabled = false;
-}
-
-function handleMessage(message) {
-	console.log('Received message:', message);
-	switch (message.type) {
-		case 'answer':
-			peerConnection.setRemoteDescription(new RTCSessionDescription(message));
-			break;
-		case 'candidate':
-			var candidate = new RTCIceCandidate({
-				sdpMLineIndex: message.label,
-				candidate: message.candidate
-			});
-			peerConnection.addIceCandidate(candidate);
-			break;
-		default:
-
-	}
 }
 
 function viewStream() {
@@ -102,4 +82,22 @@ function leaveRoom() {
 	remoteVideo.srcObject = null;
 	joinRoomButton.disabled = false;
 	leaveRoomButton.disabled = true;
+}
+
+function handleMessage(message) {
+	console.log('Received message:', message);
+	switch (message.type) {
+		case 'answer':
+			peerConnection.setRemoteDescription(new RTCSessionDescription(message));
+			break;
+		case 'candidate':
+			var candidate = new RTCIceCandidate({
+				sdpMLineIndex: message.label,
+				candidate: message.candidate
+			});
+			peerConnection.addIceCandidate(candidate);
+			break;
+		default:
+
+	}
 }

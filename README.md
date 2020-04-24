@@ -1,8 +1,12 @@
 # WebRTC Demo
 
-This is an experiment project for getting WebRTC to work in a client-server manner with one-way video streaming. There is a client view for viewing a video stream and a camera view for starting a video stream and waiting for clients to request to view it.
+## Foreword
 
-I don't really know what I'm doing. I got all this code from playing around with [this Google code lab](https://codelabs.developers.google.com/codelabs/webrtc-web/#7).
+This is an experiment project for getting WebRTC to work in a client-server manner with one-way video streaming. From the Camera View, you can start streaming from your web cam and create a "room" for sending the video stream, and from the Client View, you can join a room and view the video stream.
+
+Both the camera and client programs act as WebRTC clients, and the signaling server is in `index.js`.
+
+I don't really know what I'm doing yet. I got all this code from playing around with [this Google code lab](https://codelabs.developers.google.com/codelabs/webrtc-web/#7).
 
 ## Instructions
 
