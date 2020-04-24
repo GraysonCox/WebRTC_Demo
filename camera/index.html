@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title>Camera View</title>
+
+	<link rel="stylesheet" href="/css/main.css" />
+
+</head>
+
+<body>
+
+	<h1>Camera View</h1>
+
+	<video id="localVideo" autoplay playsinline></video>
+
+	<div>
+		<button id="createRoomButton">Create Room</button>
+		<button id="startButton">Start Capture</button>
+		<button id="closeStreamButton">Close Stream</button>
+	</div>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+	<script src="js/camera.js"></script>
+
+</body>
+
+</html>

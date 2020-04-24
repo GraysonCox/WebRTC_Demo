@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title>Client View</title>
+
+	<link rel="stylesheet" href="/css/main.css" />
+
+</head>
+
+<body>
+
+	<h1>Client View</h1>
+
+	<video id="remoteVideo" autoplay playsinline></video>
+
+	<div>
+		<button id="joinRoomButton">Join Room</button>
+		<button id="viewStreamButton">View Stream</button>
+		<button id="leaveRoomButton">Leave Room</button>
+	</div>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+	<script src="js/client.js"></script>
+
+</body>
+
+</html>
