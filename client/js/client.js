@@ -22,6 +22,10 @@ var room;
 var peerConnection;
 var remoteStream;
 
+/**
+ *	Opens a socket connection to the signaling server for the specified "room"
+ *	name.
+ */
 function joinRoom() {
 	room = prompt('Enter room name:');
 	socket = io.connect();
@@ -43,6 +47,10 @@ function joinRoom() {
 	socket.on('disconnect', leaveRoom); // TODO: This doesn't work.
 }
 
+/**
+ *	Initiates an RTCPeerConnection with the camera process and displays the
+ *	video stream once it is received.
+ */
 function viewStream() {
 	peerConnection = new RTCPeerConnection({
 		configuration: sdpConstraints,
@@ -76,6 +84,9 @@ function viewStream() {
 		});
 }
 
+/**
+ *	Closes the RTCPeerConnection and socket connection.
+ */
 function leaveRoom() {
 	peerConnection.close();
 	socket.close();
@@ -84,6 +95,9 @@ function leaveRoom() {
 	leaveRoomButton.disabled = true;
 }
 
+/**
+ *	Handles messages from the signaling server.
+ */
 function handleMessage(message) {
 	console.log('Received message:', message);
 	switch (message.type) {

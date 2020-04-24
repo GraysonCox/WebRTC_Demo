@@ -28,6 +28,9 @@ var videoConstraints = {
 	}
 }
 
+/**
+ *	Opens a socket connection with the specified "room" name.
+ */
 function createRoom() {
 	room = prompt('Enter room name:');
 	socket = io.connect();
@@ -47,6 +50,9 @@ function createRoom() {
 	socket.on('message', handleMessage);
 }
 
+/**
+ *	Starts capturing video from the web cam and displays it in the view.
+ */
 function startVideo() {
 	navigator.mediaDevices.getUserMedia(videoConstraints)
 		.then((mediaStream) => {
@@ -60,6 +66,9 @@ function startVideo() {
 
 }
 
+/**
+ *	Closes the RTCPeerConnection and socket connection.
+ */
 function closeStream() {
 	peerConnection.close();
 	socket.close();
@@ -68,6 +77,9 @@ function closeStream() {
 	closeStreamButton.disabled = true;
 }
 
+/**
+ *	Handles messages from the signaling server.
+ */
 function handleMessage(message) {
 	switch (message.type) {
 		case 'offer':
