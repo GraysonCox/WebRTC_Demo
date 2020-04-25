@@ -34,7 +34,7 @@ io.sockets.on('connection', (socket) => {
 			log(`Client ID ${socket.id} created room ${room}.`);
 			socket.emit('created', room, socket.id);
 		} else if (numClients <= MAX_CLIENTS) {
-			log(`Client ID ${socket.id} joined room ${room}.`;
+			log(`Client ID ${socket.id} joined room ${room}.`);
 			io.sockets.in(room).emit('join', room);
 			socket.join(room);
 			socket.emit('joined', room, socket.id);
